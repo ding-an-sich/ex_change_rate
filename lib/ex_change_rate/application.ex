@@ -12,8 +12,6 @@ defmodule ExChangeRate.Application do
       ExChangeRate.Repo,
       # Start the Telemetry supervisor
       ExChangeRateWeb.Telemetry,
-      # Start the PubSub system
-      {Phoenix.PubSub, name: ExChangeRate.PubSub},
       # Start the Endpoint (http/https)
       ExChangeRateWeb.Endpoint
       # Start a worker by calling: ExChangeRate.Worker.start_link(arg)
