@@ -3,13 +3,15 @@ defmodule ExChangeRate.Commands do
   alias ExChangeRateWeb.Params.CreateParams
 
   alias Ecto.Changeset
+
   alias ExChangeRate.Repo
+  alias ExChangeRate.Workers.ExchangeRateRequestsWorker
 
   @spec create(CreateParams.t()) :: :ok
   def create(%CreateParams{} = params) do
     params
     |> insert_pending_exchange_rate()
-    |> insert_get_exchange_rate_job()
+    |> insert_exchange_rate_worker()
 
     :ok
   end
@@ -27,12 +29,14 @@ defmodule ExChangeRate.Commands do
     end)
   end
 
-  defp insert_get_exchange_rate_job(%ExchangeRateRequest{
+  defp insert_exchange_rate_worker(%ExchangeRateRequest{
          id: id,
          from: from,
          to: to,
-         to_value: value
+         from_value: value
        }) do
-    :ok
+    %{exchange_rate_request_id: id, from: from, to: to, value: value}
+    |> ExchangeRateRequestsWorker.new()
+    |> Oban.insert!()
   end
 end
