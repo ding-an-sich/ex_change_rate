@@ -8,14 +8,10 @@ defmodule ExChangeRate.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      # Start the Ecto repository
       ExChangeRate.Repo,
-      # Start the Telemetry supervisor
       ExChangeRateWeb.Telemetry,
-      # Start the Endpoint (http/https)
-      ExChangeRateWeb.Endpoint
-      # Start a worker by calling: ExChangeRate.Worker.start_link(arg)
-      # {ExChangeRate.Worker, arg}
+      ExChangeRateWeb.Endpoint,
+      {Oban, Application.fetch_env!(:ex_change_rate, Oban)}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
