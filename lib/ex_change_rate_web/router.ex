@@ -7,5 +7,9 @@ defmodule ExChangeRateWeb.Router do
 
   scope "/api", ExChangeRateWeb do
     pipe_through :api
+
+    resources "/exchange_rates",
+              ExchangeRatesController,
+              only: [:index, :create]
   end
 end
