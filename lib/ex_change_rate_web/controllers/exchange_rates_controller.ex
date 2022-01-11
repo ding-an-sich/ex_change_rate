@@ -1,5 +1,6 @@
 defmodule ExChangeRateWeb.ExchangeRatesController do
   use ExChangeRateWeb, :controller
+  use ExChangeRateWeb.Specs.ExchangeRateControllerSpecs
 
   alias ExChangeRate.Commands
   alias ExChangeRate.Queries
