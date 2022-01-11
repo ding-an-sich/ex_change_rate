@@ -21,7 +21,7 @@ defmodule ExChangeRate.Clients.ExchangeratesAPI do
   plug Tesla.Middleware.JSON
 
   @spec call(map()) :: {:ok, map()} | {:error, term()}
-  def call(%{"from" => from, "to" => to} = currencies_pair) do
+  def call(%{from: from, to: to} = currencies_pair) do
     Logger.info("Fetching exchange rate information for #{inspect(currencies_pair)}}")
 
     "latest"

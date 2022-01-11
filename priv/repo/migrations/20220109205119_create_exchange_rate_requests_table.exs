@@ -11,6 +11,9 @@ defmodule ExChangeRate.Repo.Migrations.CreateExchangeRateRequestsTable do
       add :to_value, :bigint
       add :rate, :decimal
       add :status, :string, default: "pending", null: false
+      add :failure_reason, :string
+      add :failed_at, :naive_datetime_usec
+      add :completed_at, :naive_datetime_usec
 
       timestamps(type: :naive_datetime_usec)
     end
