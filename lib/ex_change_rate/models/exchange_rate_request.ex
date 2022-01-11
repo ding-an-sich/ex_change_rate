@@ -23,8 +23,8 @@ defmodule ExChangeRate.Models.ExchangeRateRequest do
     field(:user_id, Ecto.UUID)
     field(:from, :string)
     field(:to, :string)
-    field(:from_value, :integer)
-    field(:to_value, :integer)
+    field(:from_value, Money.Ecto.Composite.Type)
+    field(:to_value, Money.Ecto.Composite.Type)
     field(:rate, :decimal)
     field(:failure_reason, :string)
 

@@ -9,6 +9,7 @@ defmodule ExChangeRate.Commands do
 
   alias ExChangeRate.Models.ExchangeRateRequest
   alias ExChangeRate.Repo
+  alias ExChangeRate.Utils.Currency
   alias ExChangeRate.Workers.ExchangeRateRequestsWorker
 
   alias ExChangeRateWeb.Params.CreateParams
@@ -74,9 +75,10 @@ defmodule ExChangeRate.Commands do
     end)
   end
 
-  defp insert_pending_exchange_rate(%CreateParams{} = params) do
+  defp insert_pending_exchange_rate(%CreateParams{from: from} = params) do
     params
     |> Map.from_struct()
+    |> Map.update!(:from_value, &Currency.new(&1, from))
     |> then(fn params_map ->
       %ExchangeRateRequest{}
       |> ExchangeRateRequest.changeset(params_map)
@@ -89,8 +91,10 @@ defmodule ExChangeRate.Commands do
          id: id,
          from: from,
          to: to,
-         from_value: value
+         from_value: from_value
        }) do
+    value = Currency.get_value(from_value)
+
     %{exchange_rate_request_id: id, from: from, to: to, from_value: value}
     |> ExchangeRateRequestsWorker.new()
     |> Oban.insert!()

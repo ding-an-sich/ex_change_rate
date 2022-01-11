@@ -1,8 +1,48 @@
-defmodule ExChangeRate.Utils.SupportedCurrencies do
+defmodule ExChangeRate.Utils.Currency do
   @moduledoc """
-  Returns supported currencies
+  Functions for calculation, casting and conversion of currencies
   """
-  def list do
+
+  @doc """
+  Creates a new currency representation
+  """
+  def new(value, currency), do: Money.new(value, currency)
+
+  @doc """
+  Extracts the value from a currency representation
+  """
+  def get_value(%Money{amount: amount}), do: amount
+
+  @doc """
+  Given two exchange rates in a common base (EUR by default), calculates
+  an exchange rate between the two
+  """
+  @spec calculate_exchange_rate(from_rate :: float(), to_rate :: float()) :: Decimal.t()
+  def calculate_exchange_rate(from_rate, to_rate) do
+    from_rate = from_rate |> Decimal.from_float() |> Decimal.round(3)
+    to_rate = to_rate |> Decimal.from_float() |> Decimal.round(3)
+
+    to_rate
+    |> Decimal.div(from_rate)
+    |> Decimal.round(3)
+  end
+
+  @doc """
+  Given an amount, a conversion rate and a target currency, returns
+  amount in target currency
+  """
+  @spec convert(amount :: integer(), rate :: Decimal.t(), target_currency :: String.t()) ::
+          Money.t()
+  def convert(amount, rate, target_currency) do
+    amount
+    |> new(target_currency)
+    |> Money.multiply(rate)
+  end
+
+  @doc """
+  Returns a supported list of currencies
+  """
+  def supported_currencies_list do
     [
       "AED",
       "AFN",

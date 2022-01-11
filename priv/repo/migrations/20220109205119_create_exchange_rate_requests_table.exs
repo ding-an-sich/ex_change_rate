@@ -7,8 +7,6 @@ defmodule ExChangeRate.Repo.Migrations.CreateExchangeRateRequestsTable do
       add :user_id, :binary_id, null: false
       add :to, :string, null: false
       add :from, :string, null: false
-      add :from_value, :bigint, null: false
-      add :to_value, :bigint
       add :rate, :decimal
       add :status, :string, default: "pending", null: false
       add :failure_reason, :string

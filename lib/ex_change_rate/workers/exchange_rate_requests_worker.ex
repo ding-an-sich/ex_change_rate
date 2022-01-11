@@ -5,6 +5,7 @@ defmodule ExChangeRate.Workers.ExchangeRateRequestsWorker do
 
   alias ExChangeRate.Clients.ExchangeratesAPI
   alias ExChangeRate.Commands
+  alias ExChangeRate.Utils.Currency
 
   require Logger
 
@@ -22,7 +23,7 @@ defmodule ExChangeRate.Workers.ExchangeRateRequestsWorker do
     with {:ok, %{^from => from_rate, ^to => to_rate}} <-
            ExchangeratesAPI.call(%{from: from, to: to}),
          rate <- get_exchange_rate(from_rate, to_rate),
-         to_value <- get_to_value(from_value, rate),
+         to_value <- get_to_value(from_value, rate, to),
          {:ok, :ok} <-
            Commands.update(%{id: id, rate: rate, to_value: to_value, status: :completed}) do
       :ok
@@ -44,19 +45,9 @@ defmodule ExChangeRate.Workers.ExchangeRateRequestsWorker do
     end
   end
 
-  defp get_exchange_rate(from_rate, to_rate) do
-    from_rate = Decimal.from_float(from_rate)
-    to_rate = Decimal.from_float(to_rate)
+  defp get_exchange_rate(from_rate, to_rate),
+    do: Currency.calculate_exchange_rate(from_rate, to_rate)
 
-    to_rate
-    |> Decimal.div(from_rate)
-    |> Decimal.round(4)
-  end
-
-  defp get_to_value(from_value, rate) do
-    from_value
-    |> Decimal.new()
-    |> Decimal.mult(rate)
-    |> Decimal.to_integer()
-  end
+  defp get_to_value(from_value, rate, to),
+    do: Currency.convert(from_value, rate, to)
 end
