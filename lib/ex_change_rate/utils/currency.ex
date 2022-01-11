@@ -17,14 +17,24 @@ defmodule ExChangeRate.Utils.Currency do
   Given two exchange rates in a common base (EUR by default), calculates
   an exchange rate between the two
   """
-  @spec calculate_exchange_rate(from_rate :: float(), to_rate :: float()) :: Decimal.t()
-  def calculate_exchange_rate(from_rate, to_rate) do
-    from_rate = from_rate |> Decimal.from_float() |> Decimal.round(3)
-    to_rate = to_rate |> Decimal.from_float() |> Decimal.round(3)
+  @spec calculate_exchange_rate(from_rate :: float() | integer(), to_rate :: float() | integer()) ::
+          Decimal.t()
+  def calculate_exchange_rate(from_rate, to_rate)
+      when is_float(from_rate) and is_float(to_rate) do
+    from_rate = from_rate |> Decimal.from_float() |> Decimal.round(5)
+    to_rate = to_rate |> Decimal.from_float() |> Decimal.round(5)
 
     to_rate
     |> Decimal.div(from_rate)
-    |> Decimal.round(3)
+    |> Decimal.round(5)
+  end
+
+  def calculate_exchange_rate(from_rate, to_rate)
+      when is_integer(from_rate) or is_integer(to_rate) do
+    from_rate = if is_integer(from_rate), do: from_rate / 1, else: from_rate
+    to_rate = if is_integer(to_rate), do: to_rate / 1, else: to_rate
+
+    calculate_exchange_rate(from_rate, to_rate)
   end
 
   @doc """
