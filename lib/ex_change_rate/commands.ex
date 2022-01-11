@@ -20,10 +20,8 @@ defmodule ExChangeRate.Commands do
     params
     |> Map.from_struct()
     |> then(fn params_map ->
-      ExchangeRateRequest.changeset(
-        %ExchangeRateRequest{},
-        params_map
-      )
+      %ExchangeRateRequest{}
+      |> ExchangeRateRequest.changeset(params_map)
       |> Changeset.apply_changes()
       |> Repo.insert!()
     end)

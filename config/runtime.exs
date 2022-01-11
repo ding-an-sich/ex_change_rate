@@ -65,3 +65,9 @@ if config_env() == :prod do
   # Then you can assemble a release by calling `mix release`.
   # See `mix help release` for more information.
 end
+
+exchangerates_api_key = System.fetch_env!("ER_API_KEY")
+
+config :ex_change_rate,
+       ExChangeRate.Clients.ExchangeratesAPI,
+       api_key: exchangerates_api_key
