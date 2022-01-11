@@ -41,7 +41,14 @@ defmodule ExChangeRate.MixProject do
       {:telemetry_poller, "~> 1.0"},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
-      {:oban, "~> 2.10"}
+      {:tesla, github: "teamon/tesla"},
+      {:oban, "~> 2.10"},
+
+      ## Testing
+      {:mox, "~> 1.0", only: [:dev, :test]},
+
+      ## Linting
+      {:credo, "~> 1.6.1", only: [:dev, :test], runtime: false}
     ]
   end
 
