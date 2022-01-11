@@ -43,6 +43,7 @@ defmodule ExChangeRate.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:tesla, github: "teamon/tesla"},
       {:oban, "~> 2.10"},
+      {:money, "~> 1.9"},
 
       ## Testing
       {:mox, "~> 1.0", only: [:dev, :test]},
