@@ -26,6 +26,11 @@ config :ex_change_rate, Oban,
   repo: ExChangeRate.Repo,
   queues: [requests: 10]
 
+config :ex_change_rate, Mentat,
+  name: ExChangeRate.Cache,
+  limit: [size: 300],
+  ttl: 1_800_000
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"
