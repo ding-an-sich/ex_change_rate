@@ -46,6 +46,9 @@ defmodule ExChangeRate.MixProject do
       {:oban, "~> 2.10"},
       {:money, "~> 1.9"},
 
+      ## Documentation,
+      {:open_api_spex, "~> 3.11"},
+
       ## Caching
       {:mentat, "~> 0.7"},
 
