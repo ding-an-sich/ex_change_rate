@@ -4,17 +4,24 @@ defmodule ExChangeRateWeb.ExchangeRatesController do
   alias ExChangeRate.Commands
   alias ExChangeRate.Queries
 
-  alias ExChangeRateWeb.Params.CreateParams
+  alias ExChangeRateWeb.ErrorView
   alias ExChangeRateWeb.ExchangeRatesView
+  alias ExChangeRateWeb.Params.CreateParams
 
-  def index(conn, params) do
-    with user_id when is_binary(user_id) <- Map.get(params, "user_id", nil),
-         {:ok, _} <- Ecto.UUID.cast(user_id),
-         exchange_rate_requests <- Queries.list_by_user_id(user_id) do
-      conn
-      |> put_status(200)
-      |> put_view(ExchangeRatesView)
-      |> render("exchange_rates.json", %{exchange_rate_requests: exchange_rate_requests})
+  def index(conn, %{"user_id" => user_id}) do
+    case Ecto.UUID.cast(user_id) do
+      {:ok, _} ->
+        exchange_rate_requests = Queries.list_by_user_id(user_id)
+
+        conn
+        |> put_status(200)
+        |> put_view(ExchangeRatesView)
+        |> render("exchange_rates.json", %{exchange_rate_requests: exchange_rate_requests})
+
+      :error ->
+        conn
+        |> put_status(200)
+        |> render(ErrorView, "400.json", message: "user_id must be an UUID")
     end
   end
 
@@ -27,8 +34,10 @@ defmodule ExChangeRateWeb.ExchangeRatesController do
 
         send_resp(conn, 202, "")
 
-      _ ->
-        raise "todo"
+      changeset ->
+        conn
+        |> put_status(400)
+        |> render(ErrorView, "400.json", changeset: changeset)
     end
   end
 end

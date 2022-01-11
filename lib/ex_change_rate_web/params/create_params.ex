@@ -20,10 +20,22 @@ defmodule ExChangeRateWeb.Params.CreateParams do
     changeset
     |> cast(params, @fields)
     |> validate_required(@fields)
+    |> upcase_currency_codes()
     |> validate_number(:from_value, greater_than: 0)
     |> validate_inclusion(:from, @supported_currencies_list)
     |> validate_inclusion(:to, @supported_currencies_list)
     |> validate_different_currencies
+  end
+
+  defp upcase_currency_codes(%{valid?: false} = changeset), do: changeset
+
+  defp upcase_currency_codes(changeset) do
+    from = get_change(changeset, :from)
+    to = get_change(changeset, :to)
+
+    changeset
+    |> put_change(:from, String.upcase(from))
+    |> put_change(:to, String.upcase(to))
   end
 
   defp validate_different_currencies(%{valid?: false} = changeset), do: changeset

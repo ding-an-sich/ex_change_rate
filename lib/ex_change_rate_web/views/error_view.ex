@@ -1,11 +1,15 @@
 defmodule ExChangeRateWeb.ErrorView do
   use ExChangeRateWeb, :view
 
-  # If you want to customize a particular status code
-  # for a certain format, you may uncomment below.
-  # def render("500.json", _assigns) do
-  #   %{errors: %{detail: "Internal Server Error"}}
-  # end
+  alias ExChangeRateWeb.ErrorHelpers
+
+  def render("400.json", %{changeset: changeset}) do
+    Ecto.Changeset.traverse_errors(changeset, &ErrorHelpers.translate_error/1)
+  end
+
+  def render("400.json", %{message: message}) do
+    %{errors: %{reason: message}}
+  end
 
   # By default, Phoenix returns the status message from
   # the template name. For example, "404.json" becomes

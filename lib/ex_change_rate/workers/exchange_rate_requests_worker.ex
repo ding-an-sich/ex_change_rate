@@ -1,4 +1,8 @@
 defmodule ExChangeRate.Workers.ExchangeRateRequestsWorker do
+  @moduledoc """
+  Background worker that processes exchange rate requests
+  """
+
   use Oban.Worker,
     queue: :requests,
     max_attempts: 3
