@@ -3,7 +3,19 @@ defmodule ExChangeRate.Models.ExchangeRateRequest do
 
   import Ecto.Changeset
 
-  @fields ~w<user_id from to from_value to_value rate>a
+  @fields ~w<
+  user_id
+  from
+  to
+  from_value
+  to_value
+  rate
+  status
+  completed_at
+  failed_at
+  failure_reason
+  >a
+
   @required_create_fields ~w<user_id from to from_value>a
 
   @primary_key {:id, Ecto.UUID, autogenerate: true}
@@ -14,6 +26,7 @@ defmodule ExChangeRate.Models.ExchangeRateRequest do
     field(:from_value, :integer)
     field(:to_value, :integer)
     field(:rate, :decimal)
+    field(:failure_reason, :string)
 
     field(:status, Ecto.Enum,
       values: [
@@ -23,6 +36,9 @@ defmodule ExChangeRate.Models.ExchangeRateRequest do
       ],
       default: :pending
     )
+
+    field(:completed_at, :naive_datetime_usec)
+    field(:failed_at, :naive_datetime_usec)
 
     timestamps()
   end
