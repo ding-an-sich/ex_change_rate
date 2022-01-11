@@ -1,6 +1,6 @@
 defmodule ExChangeRate.Utils.Currency do
   @moduledoc """
-  Functions for calculation, casting and conversion of currencies
+  Functions for calculation, casting, conversion and formatting of currencies
   """
 
   @doc """
@@ -37,6 +37,18 @@ defmodule ExChangeRate.Utils.Currency do
     amount
     |> new(target_currency)
     |> Money.multiply(rate)
+  end
+
+  @doc """
+  Formats given currencies or rates to a string representation
+  """
+  @spec format_to_string(amount_currency_pair :: Money.t() | Decimal.t()) :: String.t()
+  def format_to_string(%Money{} = amount_currency_pair) do
+    Money.to_string(amount_currency_pair, separator: ".", delimiter: ",")
+  end
+
+  def format_to_string(%Decimal{} = rate) do
+    Decimal.to_string(rate, :normal)
   end
 
   @doc """
