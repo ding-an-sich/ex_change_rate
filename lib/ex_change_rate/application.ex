@@ -11,7 +11,8 @@ defmodule ExChangeRate.Application do
       ExChangeRate.Repo,
       ExChangeRateWeb.Telemetry,
       ExChangeRateWeb.Endpoint,
-      {Oban, Application.fetch_env!(:ex_change_rate, Oban)}
+      {Oban, Application.fetch_env!(:ex_change_rate, Oban)},
+      {Mentat, Application.fetch_env!(:ex_change_rate, Mentat)}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

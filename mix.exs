@@ -37,6 +37,7 @@ defmodule ExChangeRate.MixProject do
       {:phoenix_ecto, "~> 4.4"},
       {:ecto_sql, "~> 3.6"},
       {:postgrex, ">= 0.0.0"},
+      {:telemetry, "~> 1.0", override: true},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
       {:jason, "~> 1.2"},
@@ -44,6 +45,9 @@ defmodule ExChangeRate.MixProject do
       {:tesla, github: "teamon/tesla"},
       {:oban, "~> 2.10"},
       {:money, "~> 1.9"},
+
+      ## Caching
+      {:mentat, "~> 0.7"},
 
       ## Testing
       {:mox, "~> 1.0", only: [:dev, :test]},

@@ -6,6 +6,8 @@ defmodule ExChangeRate.Clients.ExchangeratesAPI do
 
   use Tesla, only: [:get]
 
+  alias ExChangeRate.Cache
+
   require Logger
 
   @base_url "http://api.exchangeratesapi.io/v1/"
@@ -22,14 +24,31 @@ defmodule ExChangeRate.Clients.ExchangeratesAPI do
 
   @spec call(map()) :: {:ok, map()} | {:error, term()}
   def call(%{from: from, to: to} = currencies_pair) do
+    cached = Cache.get("#{from}#{to}") || Cache.get("#{to}#{from}")
+
+    if cached do
+      Logger.debug("Cache hit!")
+
+      {:ok, cached}
+    else
+      Logger.debug("Cache miss!")
+
+      do_call(currencies_pair)
+    end
+  end
+
+  defp do_call(%{from: from, to: to} = currencies_pair) do
     Logger.info("Fetching exchange rate information for #{inspect(currencies_pair)}}")
 
     "latest"
     |> get(query: [symbols: "#{from}, #{to}"])
     |> handle_response
     |> case do
-      {:ok, _rates} = result ->
+      {:ok, rates} = result ->
         Logger.info("Sucessfully fetched exchange rates")
+
+        Cache.put("#{from}#{to}", rates)
+        Cache.put("#{to}#{from}", rates)
 
         result
 
