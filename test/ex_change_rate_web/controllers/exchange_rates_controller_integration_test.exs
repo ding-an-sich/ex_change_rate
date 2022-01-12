@@ -160,10 +160,8 @@ defmodule ExChangeRateWeb.ExchangeRatesControllerIntegrationTest do
         {:ok, json(response, status: 200)}
       end)
 
-      ExUnit.CaptureLog.capture_log(fn ->
-        assert {:error, "Something went very, very wrong"} ==
-                 perform_job(ExchangeRateRequestsWorker, job_args, attempt: 3, max_attempts: 3)
-      end)
+      assert {:error, "Something went very, very wrong"} ==
+               perform_job(ExchangeRateRequestsWorker, job_args, attempt: 3, max_attempts: 3)
 
       assert [
                %ExchangeRateRequest{

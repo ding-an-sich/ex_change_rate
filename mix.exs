@@ -53,7 +53,8 @@ defmodule ExChangeRate.MixProject do
       {:mentat, "~> 0.7"},
 
       ## Testing
-      {:mox, "~> 1.0", only: [:dev, :test]},
+      {:mox, "~> 1.0", only: :test},
+      {:mock, "~> 0.3.0", only: :test},
       {:ex_machina, "~> 2.7.0", only: :test},
 
       ## Linting

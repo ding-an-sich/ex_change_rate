@@ -29,3 +29,7 @@ config :phoenix, :plug_init_mode, :runtime
 config :tesla, adapter: TeslaMock
 
 config :ex_change_rate, Oban, queues: false, plugins: false
+
+config :ex_change_rate,
+       ExChangeRate.Clients.ExchangeratesAPI,
+       api_key: "123456"
