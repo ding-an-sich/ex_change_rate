@@ -9,6 +9,13 @@ defmodule ExChangeRateWeb.Params.CreateParams do
   @fields ~w<user_id from to from_value>a
   @supported_currencies_list ExChangeRate.Utils.Currency.supported_currencies_list()
 
+  @type t :: %__MODULE__{
+          from: String.t(),
+          to: String.t(),
+          from_value: integer(),
+          user_id: Ecto.UUID.t()
+        }
+
   embedded_schema do
     field(:user_id, Ecto.UUID)
     field(:from, :string)

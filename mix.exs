@@ -57,8 +57,9 @@ defmodule ExChangeRate.MixProject do
       {:mock, "~> 0.3.0", only: :test},
       {:ex_machina, "~> 2.7.0", only: :test},
 
-      ## Linting
-      {:credo, "~> 1.6.1", only: [:dev, :test], runtime: false}
+      ## Linting and static analysis
+      {:credo, "~> 1.6.1", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.1.0", only: [:dev], runtime: false}
     ]
   end
 
