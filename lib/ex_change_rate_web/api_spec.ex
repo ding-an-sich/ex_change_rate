@@ -1,13 +1,13 @@
 defmodule ExChangeRateWeb.ApiSpec do
   @moduledoc """
-  Application Open Api Spec
+  Open Api specs for the application
   """
-  @behaviour OpenApi
+  @behaviour OpenApiSpex.OpenApi
 
   alias OpenApiSpex.{Info, OpenApi, Paths, Server}
   alias ExChangeRateWeb.{Endpoint, Router}
 
-  @impl OpenApi
+  @impl OpenApiSpex.OpenApi
   def spec do
     OpenApiSpex.resolve_schema_modules(%OpenApi{
       servers: [
