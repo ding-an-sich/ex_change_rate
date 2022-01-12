@@ -53,11 +53,13 @@ defmodule ExChangeRate.MixProject do
       {:mentat, "~> 0.7"},
 
       ## Testing
-      {:mox, "~> 1.0", only: [:dev, :test]},
+      {:mox, "~> 1.0", only: :test},
+      {:mock, "~> 0.3.0", only: :test},
       {:ex_machina, "~> 2.7.0", only: :test},
 
-      ## Linting
-      {:credo, "~> 1.6.1", only: [:dev, :test], runtime: false}
+      ## Linting and static analysis
+      {:credo, "~> 1.6.1", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.1.0", only: [:dev], runtime: false}
     ]
   end
 
@@ -72,7 +74,7 @@ defmodule ExChangeRate.MixProject do
       setup: ["deps.get", "ecto.setup"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test --warnings-as-errors"]
     ]
   end
 end

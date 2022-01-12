@@ -16,6 +16,8 @@ defmodule ExChangeRate.DataCase do
 
   use ExUnit.CaseTemplate
 
+  alias ExChangeRate.Cache
+
   using do
     quote do
       alias ExChangeRate.Repo
@@ -29,7 +31,11 @@ defmodule ExChangeRate.DataCase do
 
   setup tags do
     pid = Ecto.Adapters.SQL.Sandbox.start_owner!(ExChangeRate.Repo, shared: not tags[:async])
+
     on_exit(fn -> Ecto.Adapters.SQL.Sandbox.stop_owner(pid) end)
+
+    Cache.flush()
+
     :ok
   end
 

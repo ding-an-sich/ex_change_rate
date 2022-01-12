@@ -1,8 +1,14 @@
 defmodule ExChangeRateWeb.Schemas do
-  require OpenApiSpex
+  @moduledoc """
+  Open Api schema
+  """
   alias OpenApiSpex.Schema
+  require OpenApiSpex
 
   defmodule ExchangeRateCreateParams do
+    @moduledoc """
+    ExchangeRateCreateParams schema
+    """
     OpenApiSpex.schema(%{
       title: "Exchange rate operation create params",
       description: "Creates a new exchange rate request to be processed by the application",
@@ -36,6 +42,9 @@ defmodule ExChangeRateWeb.Schemas do
   end
 
   defmodule ExchangeRate do
+    @moduledoc """
+    ExchangeRate schema
+    """
     OpenApiSpex.schema(%{
       title: "Exchange rate operation",
       description: "Holds exchange rate information for a pair of currencies",
@@ -89,6 +98,9 @@ defmodule ExChangeRateWeb.Schemas do
   end
 
   defmodule ExchangeRatesResponse do
+    @moduledoc """
+    ExchangeRatesResponse schema
+    """
     OpenApiSpex.schema(%{
       title: "Exchange rates response",
       description: "Response schema for a list of exchange rates",

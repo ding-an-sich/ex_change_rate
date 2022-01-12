@@ -1,12 +1,15 @@
 defmodule ExChangeRateWeb.ApiSpec do
+  @moduledoc """
+  Open Api specs for the application
+  """
+  @behaviour OpenApiSpex.OpenApi
+
   alias OpenApiSpex.{Info, OpenApi, Paths, Server}
   alias ExChangeRateWeb.{Endpoint, Router}
 
-  @behaviour OpenApi
-
-  @impl OpenApi
+  @impl OpenApiSpex.OpenApi
   def spec do
-    %OpenApi{
+    OpenApiSpex.resolve_schema_modules(%OpenApi{
       servers: [
         Server.from_endpoint(Endpoint)
       ],
@@ -15,7 +18,6 @@ defmodule ExChangeRateWeb.ApiSpec do
         version: "0.1.0"
       },
       paths: Paths.from_router(Router)
-    }
-    |> OpenApiSpex.resolve_schema_modules()
+    })
   end
 end

@@ -21,8 +21,9 @@ defmodule ExChangeRateWeb.ExchangeRatesController do
 
       :error ->
         conn
-        |> put_status(200)
-        |> render(ErrorView, "400.json", message: "user_id must be an UUID")
+        |> put_status(400)
+        |> put_view(ErrorView)
+        |> render("400.json", message: "user_id must be an UUID")
     end
   end
 

@@ -1,7 +1,7 @@
 defmodule ExChangeRateWeb.Router do
   use ExChangeRateWeb, :router
 
-  alias OpenApiSpex.Plug.{RenderSpec, PutApiSpec, SwaggerUI}
+  alias OpenApiSpex.Plug.{PutApiSpec, RenderSpec, SwaggerUI}
 
   @swagger_ui_config [
     path: "/api/openapi"
