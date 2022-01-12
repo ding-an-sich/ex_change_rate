@@ -80,6 +80,6 @@ defmodule ExChangeRate.Clients.ExchangeratesAPI do
   defp parse_body(%{"success" => true, "rates" => rates}),
     do: {:ok, rates}
 
-  defp parse_body(%{"sucess" => false, "error" => %{"info" => reason}}),
+  defp parse_body(%{"success" => false, "error" => %{"info" => reason}}),
     do: {:error, reason}
 end
