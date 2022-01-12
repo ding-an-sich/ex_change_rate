@@ -43,6 +43,7 @@ Rode:
 
 ```bash
 docker-compose up -d # Inicia uma instância do Postgres
+export ER_API_KEY=<SUA_API_KEY> # Exporta a variável de ambiente com sua chave da API
 mix deps.get # Instala localmente as dependências
 mix ecto.setup # Cria e migra o banco de dados
 mix phx.server # Inicia o servidor
