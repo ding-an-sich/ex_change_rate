@@ -26,4 +26,6 @@ config :logger, level: :warn
 # Initialize plugs at runtime for faster test compilation
 config :phoenix, :plug_init_mode, :runtime
 
-config :my_app, Oban, queues: false, plugins: false
+config :tesla, adapter: TeslaMock
+
+config :ex_change_rate, Oban, queues: false, plugins: false
