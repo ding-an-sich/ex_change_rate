@@ -54,6 +54,7 @@ defmodule ExChangeRate.MixProject do
 
       ## Testing
       {:mox, "~> 1.0", only: [:dev, :test]},
+      {:ex_machina, "~> 2.7.0", only: :test},
 
       ## Linting
       {:credo, "~> 1.6.1", only: [:dev, :test], runtime: false}

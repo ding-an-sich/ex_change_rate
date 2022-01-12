@@ -6,4 +6,6 @@ defmodule ExChangeRate.Cache do
   def get(key), do: Mentat.get(__MODULE__, key)
 
   def put(key, value), do: Mentat.put(__MODULE__, key, value)
+
+  def flush, do: Mentat.purge(__MODULE__)
 end
