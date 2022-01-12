@@ -11,7 +11,8 @@ defmodule ExChangeRateWeb.ApiSpec do
   def spec do
     OpenApiSpex.resolve_schema_modules(%OpenApi{
       servers: [
-        Server.from_endpoint(Endpoint)
+        Server.from_endpoint(Endpoint),
+        %Server{url: "https://ex-change-rate.gigalixirapp.com:443", description: "prod"}
       ],
       info: %Info{
         title: "ExChangeRate",
