@@ -12,9 +12,7 @@ config :ex_change_rate,
 
 config :ex_change_rate, ExChangeRateWeb.Endpoint,
   url: [host: "localhost"],
-  render_errors: [view: ExChangeRateWeb.ErrorView, accepts: ~w(json), layout: false],
-  pubsub_server: ExChangeRate.PubSub,
-  live_view: [signing_salt: "1NQNCwkA"]
+  render_errors: [view: ExChangeRateWeb.ErrorView, accepts: ~w(json), layout: false]
 
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
