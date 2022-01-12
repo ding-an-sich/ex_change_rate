@@ -1,4 +1,7 @@
 defmodule ExChangeRate.Models.ExchangeRateRequest do
+  @moduledoc """
+  Represents an user's request for exchange rate information between two currencies
+  """
   use Ecto.Schema
 
   import Ecto.Changeset

@@ -1,4 +1,7 @@
 defmodule ExChangeRateWeb.Specs.ExchangeRateControllerSpecs do
+  @moduledoc """
+  Open Api specs for the ExchangeRateController
+  """
   defmacro __using__(_opts \\ []) do
     quote location: :keep do
       use OpenApiSpex.ControllerSpecs
