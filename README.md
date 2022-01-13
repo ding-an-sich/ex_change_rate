@@ -55,3 +55,11 @@ mix ecto.setup # Cria e migra o banco de dados
 mix phx.server # Inicia o servidor
 ```
 E navegue para [localhost:4000/swaggerui](http://localhost:4000/swaggerui)
+
+## Testes
+
+Para rodar os testes unitários e de integração, depois de criado e migrado o banco de dados, rode em um terminal:
+
+```bash
+mix test
+```
