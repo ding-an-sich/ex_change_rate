@@ -2,6 +2,12 @@
 
 API para conversão de valores em diferentes moedas.
 
+Usar a API em prod: https://ex-change-rate.gigalixirapp.com/swaggerui
+
+Antes de testar chamadas com o SwaggerUI, selecionar o servidor de prod:
+
+![selecionando servidor](https://i.ibb.co/f0gTKMn/swagger-ui-server-selection.png)
+
 ## Implementação
 
 A API utiliza por baixo dos panos o serviço free de https://exchangeratesapi.io/
